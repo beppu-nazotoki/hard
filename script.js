@@ -205,6 +205,11 @@ document.getElementById('keyword-form').addEventListener('submit', function(even
             awardedNumbers.push(number);  // 追加：番号をリストに追加
             points += gainedPoints;
 
+            // 「あいことば」ポップアップの条件
+            if (keyword === "1べっぷ" || keyword === "1別府") {
+                showKeywordPopup();
+            }
+
             // ローカルストレージにデータを保存
             localStorage.setItem('keywords', JSON.stringify(keywords));
             localStorage.setItem('points', points);
@@ -329,6 +334,20 @@ function showPopupMessage(message) {
             popup.style.opacity = '1'; // フェードイン用にリセット
         }, 500); // フェードアウトが終わるまで待つ
     }, 1500); // 3秒後に消える
+}
+
+// ポップアップ表示関数
+function showKeywordPopup() {
+    const popup = document.createElement('div');
+    popup.className = 'keyword-popup';
+    popup.innerText = 'LINEに「入力した」と送信しよう';
+
+    document.body.appendChild(popup);
+
+    // ポップアップを2秒後に削除
+    setTimeout(() => {
+        popup.remove();
+    }, 15000);
 }
 
 // フォーム送信時の処理
